@@ -33,7 +33,7 @@ const ManagerQuestions = () => {
       choices: [
         {
           name: "Add an engineer to my team",
-          value: engineerQuestions.engineerName,
+          value: engineerQuestions[0].engineerName,
         },
         {
           name: "Add an Intern to my team",
