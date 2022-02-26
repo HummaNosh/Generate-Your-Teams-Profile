@@ -1,0 +1,14 @@
+h1 {
+  display: flex;
+  justify-content: center;
+  background-color: red;
+}
+
+.col-sm-4 {
+  background-color: red;
+  padding: 1rem;
+}
+
+.card-header {
+  background-color: pink;
+}
