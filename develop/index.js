@@ -1,6 +1,13 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
+// Bring in the other classes..
+
+const Employee = require("./Library/Employee");
+const Manager = require("./Library/Manager");
+const Engineer = require("./Library/Engineer");
+const Intern = require("./Library/Intern");
+
 //  Questions
 
 const ManagerQuestions = () => {
@@ -33,7 +40,7 @@ const ManagerQuestions = () => {
       choices: [
         {
           name: "Add an engineer to my team",
-          value: engineerQuestions[0].engineerName,
+          value: "something",
         },
         {
           name: "Add an Intern to my team",
@@ -50,7 +57,7 @@ const engineerQuestions = () => {
   return inquirer.prompt([
     {
       type: "input",
-      name: "engineerName",
+      name: "name",
       message: "Please enter your engineers name",
     },
 
@@ -88,7 +95,7 @@ const generateHTML = ({
   managerEmail,
   empID,
   managerNumber,
-  engineerName,
+  name,
   engineerEmail,
   engineerID,
   engineerGithub,
@@ -131,12 +138,12 @@ const generateHTML = ({
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="engineer">
     <div class="card">
     <div class="row text">
       <div class="col-sm-4">
         <div class="card-header">
-        <h2>${engineerName}</h2>
+        <h2>${name}</h2>
         <p class="lead">Engineer</p></div>
         <h3><span class="badge badge-secondary">Contact Info</span>
         </h3>
@@ -149,6 +156,27 @@ const generateHTML = ({
       </div>
     </div>
   </div>
+</div>
+<!-- Intern card -->
+<div class="container" id="intern">
+  <div class="card">
+  <div class="row text">
+    <div class="col-sm-4">
+      <div class="card-header">
+      <h2>undefined</h2>
+      <p class="lead">Intern</p></div>
+      <h3><span class="badge badge-secondary">Contact Info</span>
+      </h3>
+      <ul class="list-group">
+     
+        <li class="list-group-item">Email:         ${internEmail}</li>
+        <li class="list-group-item">Employee ID:   ${internID}</li>
+        <li class="list-group-item">School:         ${internSchool}</li>
+    </ul>
+    </div>
+    </div>
+  </div>
+</div>
 </div>
   </body>
 </html>`;
