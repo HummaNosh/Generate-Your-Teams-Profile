@@ -7,6 +7,7 @@ const Employee = require("./Library/Employee");
 const Manager = require("./Library/Manager");
 const Engineer = require("./Library/Engineer");
 const Intern = require("./Library/Intern");
+teamArray= [];
 
 //  Questions
 
@@ -33,31 +34,48 @@ const ManagerQuestions = () => {
       name: "managerNumber",
       message: "Please enter your office number",
     },
-    {
-      type: "list",
-      name: "options",
-      message: "Great! Which of the below would you like to do next?",
-      choices: [
-        {
-          name: "Add an engineer to my team",
-          value: "something",
-        },
-        {
-          name: "Add an Intern to my team",
-        },
-        {
-          name: "Create my HTML now",
-        },
-      ],
-    },
-  ]);
+   
+  ]).then(answers => {
+    const Mang = new Manager(answers.managerName, answers.managerEmail, answers.empID, answers.managerNumber);
+    teamArray.push(Mang);
+    whatToDo()
+  })
 };
+
+const whatToDo = () => {
+  return inquirer.prompt ([
+   {
+     type: "list",
+     name: "options",
+     message:"Great! Which of the below would you like to do next?", 
+     choices: [
+      {
+        name: "Add an engineer to my team",
+        
+      },
+      {
+        name: "Add an Intern to my team",
+      },
+      {
+        name: "Create my HTML now",
+      },
+    ],
+   } 
+  ]).then(function(user) {
+    switch(user.options) {
+      case "Add an engineer to my team": engineerQuestions();
+      case "Add an Intern to my team": internQuestions();
+      case "Create my HTML now": generateHTML();
+    }
+  })
+};
+
 
 const engineerQuestions = () => {
   return inquirer.prompt([
     {
       type: "input",
-      name: "name",
+      name: "enginName",
       message: "Please enter your engineers name",
     },
 
@@ -76,26 +94,66 @@ const engineerQuestions = () => {
       name: "engineerGithub",
       message: "Please enter your engineers Github Username",
     },
-  ]);
+  ]).then(answers => {
+    const Engin = new Engineer(answers.enginName, answers.engineerEmail, answers.engineerID, answers.engineerGithub);
+    teamArray.push(Engin);
+    whatToDo()
+  })
 };
 
-const CreateStuff = () => {
+const internQuestions = () => {
+  return inquirer.prompt ([
+    {
+      type: "input",
+      name: "internName",
+      message: "Please enter your Interns name",
+    },
+
+    {
+      type: "input",
+      name: "internEmail",
+      message: "Please enter your Interns email address",
+    },
+    {
+      type: "input",
+      name: "internID",
+      message: "Please enter your interns employee ID",
+    },
+    {
+      type: "input",
+      name: "internSchool",
+      message: "Please enter your Interns School",
+    },
+  ]).then(answers => {
+    const Int = new Intern(answers.internName, answers.internEmail, answers.internID, answers.internSchool);
+    teamArray.push(Int);
+    whatToDo()
+} 
+  )};
+
+
+  // QWHY IS ENGINEER QS AND INTERN NOT LOOPING??????????????AND NOT GOING BACK TO WHATTODO...AND NOT CREATING HTML...ALSO HOW DO I JOIN THE CLASSES IN HTML?
+
+// should i get rid of managerqs below????
+  const CreateStuff = () => {
   ManagerQuestions()
     .then((answers) => fs.writeFileSync("index.html", generateHTML(answers)))
     .then(() =>
       console.log("Yahoo! You have created a Team Profile! Checkout HTML")
     )
     .catch((err) => console.error(err));
+
 };
 
 CreateStuff();
 
+// changed manager info to match classes- is that right?
 const generateHTML = ({
   managerName,
   managerEmail,
   empID,
   managerNumber,
-  name,
+  enginName,
   engineerEmail,
   engineerID,
   engineerGithub,
@@ -123,27 +181,26 @@ const generateHTML = ({
         <div class="row text">
           <div class="col-sm-4">
             <div class="card-header">
-            <h2>${managerName}</h2>
+            <h2>${Manager.getName}</h2>
             <p class="lead">Manager</p></div>
             <h3><span class="badge badge-secondary">Contact Info</span>
             </h3>
             <ul class="list-group">
-              <li class="list-group-item">Email:         ${managerEmail}</li>
-              <li class="list-group-item">Employee ID:   ${empID}</li>
-              <li class="list-group-item">Office Number: ${managerNumber}</li>
+              <li class="list-group-item">Email:         ${Manager.getEmail}</li>
+              <li class="list-group-item">Employee ID:   ${Manager.getId}</li>
+              <li class="list-group-item">Office Number: ${Manager.getOfficeNumber}</li>
             </ul>
           </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="container" id="engineer">
     <div class="card">
     <div class="row text">
       <div class="col-sm-4">
         <div class="card-header">
-        <h2>${name}</h2>
+        <h2>${enginName}</h2>
         <p class="lead">Engineer</p></div>
         <h3><span class="badge badge-secondary">Contact Info</span>
         </h3>
