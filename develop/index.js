@@ -7,158 +7,101 @@ const Employee = require("./Library/Employee");
 const Manager = require("./Library/Manager");
 const Engineer = require("./Library/Engineer");
 const Intern = require("./Library/Intern");
-teamArray= [];
+
+let teamArray= [];
 
 //  Questions
 
-const ManagerQuestions = () => {
-  return inquirer.prompt([
-    {
-      type: "input",
-      name: "managerName",
-      message:
-        "Welcome to your Team builder Mr/Ms. Manager! Please enter your name to begin",
-    },
-    {
-      type: "input",
-      name: "managerEmail",
-      message: "What is your email address?",
-    },
-    {
-      type: "input",
-      name: "empID",
-      message: "What is your Employee ID?",
-    },
-    {
-      type: "input",
-      name: "managerNumber",
-      message: "Please enter your office number",
-    },
-   
-  ]).then(answers => {
-    const Mang = new Manager(answers.managerName, answers.managerEmail, answers.empID, answers.managerNumber);
-    teamArray.push(Mang);
-    whatToDo()
-  })
-};
+// All questions to be asked per 'task' plus additions per task...
 
-const whatToDo = () => {
-  return inquirer.prompt ([
-   {
-     type: "list",
-     name: "options",
-     message:"Great! Which of the below would you like to do next?", 
-     choices: [
-      {
-        name: "Add an engineer to my team",
-        
-      },
-      {
-        name: "Add an Intern to my team",
-      },
-      {
-        name: "Create my HTML now",
-      },
-    ],
-   } 
-  ]).then(function(user) {
-    switch(user.options) {
-      case "Add an engineer to my team": engineerQuestions();
-      case "Add an Intern to my team": internQuestions();
-      case "Create my HTML now": generateHTML();
+ function getStarted () {
+   inquirer.prompt ([
+
+    {
+      type: "list",
+      name: "options",
+      message:"Welcome! Please select one of the below to start building your team profile", 
+      choices: ["Add a Manager", "Add an Engineer", "Add an Intern"],
+    },
+     {
+       type: "input",
+       name: "name",
+       message: "What is your employees name?",
+     },
+     {
+       type: "input",
+       name:"id",
+       message:"Please enter your employees ID",
+     },
+     {
+      type: "input",
+      name:"email",
+      message:"Please enter your employees email address",
+    },
+     {
+      type: "input",
+      name:"officeNumber",
+      message: "Please enter the Manager's Office number",
+      when: (answers) => answers.options === "Add a Manager",
+    },
+    {
+      type: "input",
+      name:"github",
+      message: "Please enter your Engineer's GitHub username",
+      when: (answers) => answers.options === "Add an Engineer",
+    },
+    {
+      type: "input",
+      name:"school",
+      message: "Please enter the school name your Intern attended",
+      when: (answers) => answers.options === "Add an Intern",
+    },
+    {
+      type: "confirm",
+      name:"anymore",
+      message:"Would you like to add more employees to your team profile?",
+    },
+   ])
+  //  Bring in classes..if x task is selected then push answers..or generate html..
+
+   .then ((answers) => {
+     if (answers.options === "Add a Manager") {
+       let Mang = new Manager (answers.name, answers.id, answers.email, answers.OfficeNumber);
+       teamArray.push(Mang);
+     }
+     if (answers.options === "Add an Engineer") {
+       let Eng = new Engineer (answers.name, answers.id, answers.email, answers.github);
+       teamArray.push(Eng);
+     }
+     if (answers.options === "Add an Intern") {
+      let Int = new Intern (answers.name, answers.id, answers.email, answers.school);
+      teamArray.push(Int);
     }
-  })
-};
+     if (answers.anymore === true) {
+      getStarted(); 
+    } else {
+      CreateStuff();
+    }
+   });
+ }
 
+getStarted();
 
-const engineerQuestions = () => {
-  return inquirer.prompt([
-    {
-      type: "input",
-      name: "enginName",
-      message: "Please enter your engineers name",
-    },
+const CreateStuff = () => {
+  // const gen = generateHTML();
+      fs.writeFileSync("index.html", generateHTML(), (err) => {
+       err ? console.log(err) : console.log("Yahoo! You have created a Team Profile! Checkout HTML");
+   
+   });
+   
+}
 
-    {
-      type: "input",
-      name: "engineerEmail",
-      message: "Please enter your engineers email address",
-    },
-    {
-      type: "input",
-      name: "engineerID",
-      message: "Please enter your engineers employee ID",
-    },
-    {
-      type: "input",
-      name: "engineerGithub",
-      message: "Please enter your engineers Github Username",
-    },
-  ]).then(answers => {
-    const Engin = new Engineer(answers.enginName, answers.engineerEmail, answers.engineerID, answers.engineerGithub);
-    teamArray.push(Engin);
-    whatToDo()
-  })
-};
+// look at puis example and change...
 
-const internQuestions = () => {
-  return inquirer.prompt ([
-    {
-      type: "input",
-      name: "internName",
-      message: "Please enter your Interns name",
-    },
+// CHAMGE THE HTML..................................................................
 
-    {
-      type: "input",
-      name: "internEmail",
-      message: "Please enter your Interns email address",
-    },
-    {
-      type: "input",
-      name: "internID",
-      message: "Please enter your interns employee ID",
-    },
-    {
-      type: "input",
-      name: "internSchool",
-      message: "Please enter your Interns School",
-    },
-  ]).then(answers => {
-    const Int = new Intern(answers.internName, answers.internEmail, answers.internID, answers.internSchool);
-    teamArray.push(Int);
-    whatToDo()
-} 
-  )};
-
-
-  // QWHY IS ENGINEER QS AND INTERN NOT LOOPING??????????????AND NOT GOING BACK TO WHATTODO...AND NOT CREATING HTML...ALSO HOW DO I JOIN THE CLASSES IN HTML?
-
-// should i get rid of managerqs below????
-  const CreateStuff = () => {
-  ManagerQuestions()
-    .then((answers) =>{    console.log(answers)
-     fs.writeFileSync("index.html", generateHTML(answers))})
-    .then(() =>
-      console.log("Yahoo! You have created a Team Profile! Checkout HTML")
-    )
-    .catch((err) => console.error(err));
-
-};
-
-CreateStuff();
-
-// changed manager info to match classes- is that right?
-const generateHTML = ({
-  managerName,
-  managerEmail,
-  empID,
-  managerNumber,
-  enginName,
-  engineerEmail,
-  engineerID,
-  engineerGithub,
-}) =>
+const generateHTML = () => {
+return 
   `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -182,7 +125,7 @@ const generateHTML = ({
         <div class="row text">
           <div class="col-sm-4">
             <div class="card-header">
-            <h2>${Manager.getName}</h2>
+            <h2>${Employee.getRole}</h2>
             <p class="lead">Manager</p></div>
             <h3><span class="badge badge-secondary">Contact Info</span>
             </h3>
@@ -237,4 +180,5 @@ const generateHTML = ({
 </div>
 </div>
   </body>
-</html>`;
+</html>`
+};
