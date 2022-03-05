@@ -89,7 +89,7 @@ getStarted();
 
 const CreateStuff = () => {
   // const gen = generateHTML();
-      fs.writeFileSync("index.html", generateHTML(), (err) => {
+      fs.writeFileSync("index.html", generateHTML(data), (err) => {
        err ? console.log(err) : console.log("Yahoo! You have created a Team Profile! Checkout HTML");
    
    });
@@ -98,31 +98,50 @@ const CreateStuff = () => {
 
 // CHAMGE THE HTML..................................................................
 
-const generateHTML = () => {
- 
-  `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="./style.css"/>
-    <title>Team Builder</title>
-  </head>
-  <body>
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1>Our Team</h1>
-      </div>
-    </div>
-    </body>
-</html>`
+
+
+const data = [];
+
+const generateHTML = (data) => {
+
+
+// `
+//   <!DOCTYPE html>
+// <html lang="en">
+//   <head>
+//     <meta charset="UTF-8" />
+//     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+//     <link
+//       rel="stylesheet"
+//       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+//     />
+//     <link rel="stylesheet" href="./style.css"/>
+//     <title>Team Builder</title>
+//     {data.name}
+//   </head>
+//   <body>
+//     <div class="jumbotron jumbotron-fluid">
+//       <div class="container">
+//         <h1>Our Team</h1>
+//       </div>
+//     </div>
+//     </body>
+// </html>
+// `;
+// };
+
+const genProfile = function (profile) {
+
+const html =[];
+
+html.push(profile.filter(Employee => Employee.getRole() === "Manager").map(manager => CreateManager(manager)));
+
+html.push(profile.filter(Employee => Employee.getRole() === "Engineer").map(engineer => CreateEngineer(engineer)).join(""));
+
+return html.join
 };
 
-    const CreateManager = mang => {
+    const CreateManager = (Manager) => {
       return `<div class="container">
       <div class="card">
       <div class="row text">
@@ -141,9 +160,10 @@ const generateHTML = () => {
         </div>
       </div>
     </div>
-  </div>`
+  </div>`;
     };
-      const CreateEngineer = eng => {
+
+      const CreateEngineer = Engineer => {
         `<div class="container" id="engineer">
         <div class="card">
         <div class="row text">
@@ -165,7 +185,7 @@ const generateHTML = () => {
     </div>`
       };
 
-      const CreateIntern = int => {
+      const CreateIntern = Intern => {
         `<!-- Intern card -->
         <div class="container" id="intern">
           <div class="card">
@@ -188,6 +208,4 @@ const generateHTML = () => {
         </div>
         </div>`
       };
-    
-
-  
+    };
