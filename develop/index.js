@@ -138,6 +138,8 @@ html.push(profile.filter(Employee => Employee.getRole() === "Manager").map(manag
 
 html.push(profile.filter(Employee => Employee.getRole() === "Engineer").map(engineer => CreateEngineer(engineer)).join(""));
 
+html.push(profile.filter(Employee => Employee.getRole() === "Intern").map(intern => CreateIntern(intern)).join(""));
+
 return html.join
 };
 
