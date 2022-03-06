@@ -103,7 +103,7 @@ const data = [Employee, Manager, Engineer, Intern];
 
 function generateHTML(profile) {
 
-  const makeIT = function (profile) {
+const makeIT = profile => {
 
     const CreateManager = (Manager) => {
       return `<div class="container">
@@ -128,7 +128,8 @@ function generateHTML(profile) {
     };
 
       const CreateEngineer = (Engineer) => {
-        `<div class="container" id="engineer">
+
+        return `<div class="container" id="engineer">
         <div class="card">
         <div class="row text">
           <div class="col-sm-4">
@@ -150,7 +151,8 @@ function generateHTML(profile) {
       };
 
       const CreateIntern = (Intern) => {
-        `<!-- Intern card -->
+
+       return `<!-- Intern card -->
         <div class="container" id="intern">
           <div class="card">
           <div class="row text">
@@ -176,13 +178,14 @@ function generateHTML(profile) {
 
       const html = [];
       // paste managers
-      const managers = profile.filter((employee) => employee.getRole() == "Manager").map((manager) => CreateManager(manager))
+
+      const managers = profile.filter((employee) => employee.getRole() === "Manager").map((manager) => CreateManager(manager))
       html.push(managers);
       // engineers
-      const engineers = profile.filter((employee) => employee.getRole() == "Engineer").map((engineer) => CreateEngineer(engineer))
+      const engineers = profile.filter((employee) => employee.getRole() === "Engineer").map((engineer) => CreateEngineer(engineer))
       html.push(engineers);
       // interns
-      const interns = profile.filter((employee) => employee.getRole() == "Intern").map((intern) => CreateIntern(intern))
+      const interns = profile.filter((employee) => employee.getRole() === "Intern").map((intern) => CreateIntern(intern))
       html.push(interns);
       return html.join();
 
@@ -211,4 +214,5 @@ return `
       </body>
   </html>
   `
-}
+
+};
