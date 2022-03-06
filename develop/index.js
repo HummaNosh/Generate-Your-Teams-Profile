@@ -81,6 +81,7 @@ let teamArray= [];
       getStarted(); 
     } else {
       CreateStuff(answers);
+      console.log("Yahoo! You have created a Team Profile! Checkout HTML")
     }
    });
  }
@@ -91,20 +92,18 @@ getStarted();
 
 const CreateStuff = (data) => {
   console.log({data});
-      fs.writeFileSync("index.html", generateHTML(data), (err) => {
+      fs.writeFileSync("index.html", generateHTML(teamArray), (err) => {
        err ? console.log(err) : console.log("Yahoo! You have created a Team Profile! Checkout HTML");
    
    });
    
 }
-
-// CHAMGE THE HTML.................................................................
-
-
 const data = [Employee, Manager, Engineer, Intern];
 
 
-const generateHTML = profile => {
+function generateHTML(profile) {
+
+  const makeIT = function (profile) {
 
     const CreateManager = (Manager) => {
       return `<div class="container">
@@ -117,7 +116,7 @@ const generateHTML = profile => {
           <h3><span class="badge badge-secondary">Contact Info</span>
           </h3>
           <ul class="list-group">
-            <li class="list-group-item">Email: <a href = "mailto:${Manager.email}</a></li>
+            <li class="list-group-item">Email: <a href = "mailto:${Manager.email}">${Manager.email}</a></li>
             <li class="list-group-item">Employee ID:   ${Manager.id}</li>
             <li class="list-group-item">Office Number: ${Manager.getOfficeNumber()}</li>
           </ul>
@@ -128,7 +127,7 @@ const generateHTML = profile => {
   </div>`;
     };
 
-      const CreateEngineer = Engineer => {
+      const CreateEngineer = (Engineer) => {
         `<div class="container" id="engineer">
         <div class="card">
         <div class="row text">
@@ -139,9 +138,9 @@ const generateHTML = profile => {
             <h3><span class="badge badge-secondary">Contact Info</span>
             </h3>
             <ul class="list-group">
-              <li class="list-group-item">Email:  <a href = "mailto:${Engineer.email}</a></li>
-              <li class="list-group-item">Employee ID:   ${Engineer.id}</li>
-              <li class="list-group-item">GitHub Profile: <a href= "https://github.com/${Engineer.getGithub()}" target="_blank">${engineerGithub}</a></li>
+              <li class="list-group-item">Email:  <a href = "mailto:${Engineer.email}">${Engineer.email}</a></li>
+              <li class="list-group-item">Employee ID:   ${Engineer.id} </li>
+              <li class="list-group-item">GitHub Profile: <a href= "https://github.com/${Engineer.getGithub()}" target="_blank">${Engineer.getGithub()}</a></li>
             </ul>
           </div>
           </div>
@@ -150,7 +149,7 @@ const generateHTML = profile => {
     </div>`
       };
 
-      const CreateIntern = Intern => {
+      const CreateIntern = (Intern) => {
         `<!-- Intern card -->
         <div class="container" id="intern">
           <div class="card">
@@ -163,8 +162,8 @@ const generateHTML = profile => {
               </h3>
               <ul class="list-group">
              
-                <li class="list-group-item">Email:  <a href = "mailto:${Intern.email}</a></li>
-                <li class="list-group-item">Employee ID:   ${Intern.id}</li>
+                <li class="list-group-item">Email:  <a href = "mailto:${Intern.email}">${Intern.email}</a></li>
+                <li class="list-group-item">Employee ID:    ${Intern.id}</li>
                 <li class="list-group-item">School:         ${Intern.getSchool()}</li>
             </ul>
             </div>
@@ -174,40 +173,42 @@ const generateHTML = profile => {
         </div>`
       };
   
-      
-const html =[];
 
-html.push(profile.filter(Employee => Employee.getRole() === "Manager").map(manager => CreateManager(Manager)));
+      const html = [];
+      // paste managers
+      const managers = profile.filter((employee) => employee.getRole() == "Manager").map((manager) => CreateManager(manager))
+      html.push(managers);
+      // engineers
+      const engineers = profile.filter((employee) => employee.getRole() == "Engineer").map((engineer) => CreateEngineer(engineer))
+      html.push(engineers);
+      // interns
+      const interns = profile.filter((employee) => employee.getRole() == "Intern").map((intern) => CreateIntern(intern))
+      html.push(interns);
+      return html.join();
 
-html.push(profile.filter(Employee => Employee.getRole() === "Engineer").map(engineer => CreateEngineer(Engineer)).join(""));
-
-html.push(profile.filter(Employee => Employee.getRole() === "Intern").map(intern => CreateIntern(Intern)).join(""));
-
-return html.join
 };
-      const stuff = stuffing =>{
-        return`
 
-  <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="./style.css"/>
-    <title>Team Builder</title>
-    {data.name}
-  </head>
-  <body>
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1>Our Team</h1>
+return `
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      />
+      <link rel="stylesheet" href="./style.css"/>
+      <title>Team Builder</title>
+    </head>
+    <body>
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1>Our Team</h1>
+        </div>
       </div>
-    </div>
-    </body>
-</html>
-`;
-};
+      ${makeIT(profile)}
+      </body>
+  </html>
+  `
+}

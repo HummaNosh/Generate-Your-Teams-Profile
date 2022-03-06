@@ -1,80 +1,60 @@
+
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="./style.css"/>
-    <title>Team Builder</title>
-  </head>
-  <body>
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1>Our Team</h1>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      />
+      <link rel="stylesheet" href="./style.css"/>
+      <title>Team Builder</title>
+    </head>
+    <body>
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1>Our Team</h1>
+        </div>
       </div>
-    </div>
-    <!-- Manager card -->
       <div class="container">
-        <div class="card">
-        <div class="row text">
-          <div class="col-sm-4">
-            <div class="card-header">
-            <h2>humma noshine</h2>
-            <p class="lead">Manager</p></div>
-            <h3><span class="badge badge-secondary">Contact Info</span>
-            </h3>
-            <ul class="list-group">
-              <li class="list-group-item">Email:         humma@yahoo.co.uk</li>
-              <li class="list-group-item">Employee ID:   123</li>
-              <li class="list-group-item">Office Number: 01214567899</li>
-            </ul>
-          </div>
-          </div>
+      <div class="card">
+      <div class="row text">
+        <div class="col-sm-4">
+          <div class="card-header">
+          <h2>humma</h2>
+          <p class="lead">Manager</p></div>
+          <h3><span class="badge badge-secondary">Contact Info</span>
+          </h3>
+          <ul class="list-group">
+            <li class="list-group-item">Email: <a href = "mailto:huma@yahoo.co.uk">huma@yahoo.co.uk</a></li>
+            <li class="list-group-item">Employee ID:   123</li>
+            <li class="list-group-item">Office Number: undefined</li>
+          </ul>
+        </div>
         </div>
       </div>
     </div>
-<!-- Engineer card -->
-    <div class="container" id="engineer">
+  </div>
+  <div class="container" id="engineer">
     <div class="card">
     <div class="row text">
       <div class="col-sm-4">
         <div class="card-header">
-        <h2>undefined</h2>
-        <p class="lead">Engineer</p></div>
+        <h2>${Engineer.name}</h2>
+        <p class="lead">${Engineer.getRole()}</p></div>
         <h3><span class="badge badge-secondary">Contact Info</span>
         </h3>
         <ul class="list-group">
-          <li class="list-group-item">Email:         undefined</li>
-          <li class="list-group-item">Employee ID:   undefined</li>
-          <li class="list-group-item">GitHub Profile: <a href= "https://github.com/undefined" target="_blank">undefined</a></li>
+          <li class="list-group-item">Email:  <a href = "mailto:${Engineer.email}">${Engineer.email}</a></li>
+          <li class="list-group-item">Employee ID:   ${Engineer.id} </li>
+          <li class="list-group-item">GitHub Profile: <a href= "https://github.com/${Engineer.getGithub()}" target="_blank">${Engineer.getGithub()}</a></li>
         </ul>
       </div>
       </div>
     </div>
   </div>
 </div>
-<!-- Intern card -->
-<div class="container" id="intern">
-  <div class="card">
-  <div class="row text">
-    <div class="col-sm-4">
-      <div class="card-header">
-      <h2>undefined</h2>
-      <p class="lead">Intern</p></div>
-      <h3><span class="badge badge-secondary">Contact Info</span>
-      </h3>
-      <ul class="list-group">
-        <li class="list-group-item">Email:         undefined</li>
-        <li class="list-group-item">Employee ID:   undefined</li>
-        <li class="list-group-item">GitHub Profile: <a href= "https://github.com/undefined" target="_blank">undefined</a></li>
-      </ul>
-    </div>
-    </div>
-  </div>
-</div>
-</div>
-  </body>
-</html>
+      </body>
+  </html>
+  
