@@ -106,13 +106,12 @@ function generateHTML(profile) {
 const makeIT = profile => {
 
     const CreateManager = (Manager) => {
-      return `<div class="container">
-      <div class="card">
-      <div class="row text">
-        <div class="col-sm-4">
-          <div class="card-header">
-          <h2>${Manager.name}</h2>
-          <p class="lead">${Manager.getRole()}</p></div>
+      return `<div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+          <h5 class="card-title">${Manager.name}</h5>
+          <p class="card-text">${Manager.getRole()}
           <h3><span class="badge badge-secondary">Contact Info</span>
           </h3>
           <ul class="list-group">
@@ -120,22 +119,19 @@ const makeIT = profile => {
             <li class="list-group-item">Employee ID:   ${Manager.id}</li>
             <li class="list-group-item">Office Number: ${Manager.getOfficeNumber()}</li>
           </ul>
+          </p>
         </div>
         </div>
-      </div>
-    </div>
   </div>`;
     };
 
       const CreateEngineer = (Engineer) => {
 
-        return `<div class="container" id="engineer">
-        <div class="card">
-        <div class="row text">
-          <div class="col-sm-4">
-            <div class="card-header">
-            <h2>${Engineer.name}</h2>
-            <p class="lead">${Engineer.getRole()}</p></div>
+        return `<div class="col">
+        <div class="card h-100">
+        <div class="card-body">
+        <h5 class="card-title">${Engineer.name}</h5>
+            <p class="lead">${Engineer.getRole()}
             <h3><span class="badge badge-secondary">Contact Info</span>
             </h3>
             <ul class="list-group">
@@ -143,23 +139,19 @@ const makeIT = profile => {
               <li class="list-group-item">Employee ID:   ${Engineer.id} </li>
               <li class="list-group-item">GitHub Profile: <a href= "https://github.com/${Engineer.getGithub()}" target="_blank">${Engineer.getGithub()}</a></li>
             </ul>
+            </p>
           </div>
           </div>
-        </div>
-      </div>
-    </div>`
+        </div>`
       };
 
       const CreateIntern = (Intern) => {
 
-       return `<!-- Intern card -->
-        <div class="container" id="intern">
-          <div class="card">
-          <div class="row text">
-            <div class="col-sm-4">
-              <div class="card-header">
-              <h2>${Intern.name}</h2>
-              <p class="lead">${Intern.getRole()}</p></div>
+       return `<div class="col">
+       <div class="card h-100">
+         <div class="card-body">
+         <h5 class="card-title">${Intern.name}</h5>
+              <p class="lead">${Intern.getRole()}
               <h3><span class="badge badge-secondary">Contact Info</span>
               </h3>
               <ul class="list-group">
@@ -168,6 +160,8 @@ const makeIT = profile => {
                 <li class="list-group-item">Employee ID:    ${Intern.id}</li>
                 <li class="list-group-item">School:         ${Intern.getSchool()}</li>
             </ul>
+            </p>
+            </div>
             </div>
             </div>
           </div>

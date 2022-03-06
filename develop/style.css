@@ -1,11 +1,11 @@
 h1 {
   display: flex;
   justify-content: center;
-  background-color: red;
+  background-color: pink;
 }
 
-.col-sm-4 {
-  background-color: red;
+.card-body{
+  background-color: pink;
   padding: 1rem;
 }
 
