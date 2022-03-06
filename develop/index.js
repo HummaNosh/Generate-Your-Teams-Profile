@@ -80,15 +80,17 @@ let teamArray= [];
      if (answers.anymore === true) {
       getStarted(); 
     } else {
-      CreateStuff();
+      CreateStuff(answers);
     }
    });
  }
 
 getStarted();
 
-const CreateStuff = () => {
-  // const gen = generateHTML();
+
+
+const CreateStuff = (data) => {
+  console.log({data});
       fs.writeFileSync("index.html", generateHTML(data), (err) => {
        err ? console.log(err) : console.log("Yahoo! You have created a Team Profile! Checkout HTML");
    
@@ -96,52 +98,13 @@ const CreateStuff = () => {
    
 }
 
-// CHAMGE THE HTML..................................................................
+// CHAMGE THE HTML.................................................................
 
 
-
-const data = [];
-
-const generateHTML = (data) => {
+const data = [Employee, Manager, Engineer, Intern];
 
 
-// `
-//   <!DOCTYPE html>
-// <html lang="en">
-//   <head>
-//     <meta charset="UTF-8" />
-//     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-//     <link
-//       rel="stylesheet"
-//       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-//     />
-//     <link rel="stylesheet" href="./style.css"/>
-//     <title>Team Builder</title>
-//     {data.name}
-//   </head>
-//   <body>
-//     <div class="jumbotron jumbotron-fluid">
-//       <div class="container">
-//         <h1>Our Team</h1>
-//       </div>
-//     </div>
-//     </body>
-// </html>
-// `;
-// };
-
-const genProfile = function (profile) {
-
-const html =[];
-
-html.push(profile.filter(Employee => Employee.getRole() === "Manager").map(manager => CreateManager(manager)));
-
-html.push(profile.filter(Employee => Employee.getRole() === "Engineer").map(engineer => CreateEngineer(engineer)).join(""));
-
-html.push(profile.filter(Employee => Employee.getRole() === "Intern").map(intern => CreateIntern(intern)).join(""));
-
-return html.join
-};
+const generateHTML = profile => {
 
     const CreateManager = (Manager) => {
       return `<div class="container">
@@ -210,4 +173,41 @@ return html.join
         </div>
         </div>`
       };
-    };
+  
+      
+const html =[];
+
+html.push(profile.filter(Employee => Employee.getRole() === "Manager").map(manager => CreateManager(Manager)));
+
+html.push(profile.filter(Employee => Employee.getRole() === "Engineer").map(engineer => CreateEngineer(Engineer)).join(""));
+
+html.push(profile.filter(Employee => Employee.getRole() === "Intern").map(intern => CreateIntern(Intern)).join(""));
+
+return html.join
+};
+      const stuff = stuffing =>{
+        return`
+
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./style.css"/>
+    <title>Team Builder</title>
+    {data.name}
+  </head>
+  <body>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1>Our Team</h1>
+      </div>
+    </div>
+    </body>
+</html>
+`;
+};
