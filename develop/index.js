@@ -66,7 +66,7 @@ let teamArray= [];
 
    .then ((answers) => {
      if (answers.options === "Add a Manager") {
-       let Mang = new Manager (answers.name, answers.id, answers.email, answers.OfficeNumber);
+       let Mang = new Manager (answers.name, answers.id, answers.email, answers.officeNumber);
        teamArray.push(Mang);
      }
      if (answers.options === "Add an Engineer") {
@@ -91,7 +91,7 @@ getStarted();
 
 
 const CreateStuff = (data) => {
-  console.log({data});
+
       fs.writeFileSync("index.html", generateHTML(teamArray), (err) => {
        err ? console.log(err) : console.log("Yahoo! You have created a Team Profile! Checkout HTML");
    
