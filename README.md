@@ -29,6 +29,7 @@ WHEN I decide to finish building my team
 THEN I exit the application, and the HTML is generated
 
 # Walkthrough Video
+
 https://drive.google.com/file/d/1v669bt8LgSFKJeOTvFzfspuGsb2lTaHT/view
 
 # Screenshot of Team builder
