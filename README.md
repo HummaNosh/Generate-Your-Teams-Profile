@@ -28,6 +28,8 @@ THEN I am prompted to enter the intern’s name, ID, email, and school, and I am
 WHEN I decide to finish building my team
 THEN I exit the application, and the HTML is generated
 
-# Walkthrough
+# Walkthrough Video
+https://drive.google.com/file/d/1v669bt8LgSFKJeOTvFzfspuGsb2lTaHT/view
 
 # Screenshot of Team builder
+![image](https://user-images.githubusercontent.com/93604239/156940576-523288ef-6760-48de-82d0-d6434d4910da.png)
